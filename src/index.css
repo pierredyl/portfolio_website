@@ -16,20 +16,19 @@
   font-display: swap;
 }
 
-
 @theme {
   --font-sans: "Pally-Medium", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-/* Lightened neutral blue palette */
---color-bg: #121827;
---color-bg-soft: #1E2E5A;
---color-surface: #1b2440;
---color-border: #2a3550;
---color-text: #f1f5fb;
---color-text-special: #2563eb;
---color-text-muted: #a9b4c6;
---color-accent: #6ea0ff;
---color-accent-soft: #6ea0ff33;
+  /* Lightened neutral blue palette */
+  --color-bg: #121827; 
+  --color-bg-soft: #1e2e5a;
+  --color-surface: #1b2440;
+  --color-border: #2a3550;
+  --color-text: #f5f0e1;
+  --color-text-special: #2563eb;
+  --color-text-muted: #a9b4c6;
+  --color-accent: #6ea0ff;
+  --color-accent-soft: #6ea0ff33;
 }
 
 html {
@@ -49,33 +48,15 @@ body {
   color: var(--color-text);
 }
 
-.wave-rainbow {
-  background: linear-gradient(
-    90deg,
-    #ffffff,
-    #ffffff,
-    #d6e6ff,
-    #4C93FD,
-    #2563eb,
-    #2563eb,
-    #4C93FD,
-    #d6e6ff,
-    #ffffff,
-    #ffffff
-  );
-  background-size: 800% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: rainbow-shift 16s linear infinite;
+.letter-sweep {
+  animation: letter-sweep 2.8s linear infinite;
 }
 
-@keyframes rainbow-shift {
-  0% {
-    background-position: 0% center;
+@keyframes letter-sweep {
+  0%, 100% {
+    color: #ffffff;
   }
-  100% {
-    background-position: 800% center;
+  50% {
+    color: #245ace;
   }
 }
-

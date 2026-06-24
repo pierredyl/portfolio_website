@@ -1,77 +1,89 @@
-import { motion } from 'framer-motion'
-import ParticleImage from './ParticleImage'
+import { motion } from "framer-motion";
+import ParticleImage from "./ParticleImage";
 
-const text = "Hey, I'm Dylan"
-const letterCount = "Hey, I'm Dylan".length
+const text = "Hey, I'm Dylan";
 
 export default function Hero() {
   return (
-    <section className="min-h-[100vh] section-fade flex flex-col justify-center px-50 relative overflow-hidden">
-      {/* subtle background glow */}
-      <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl pointer-events-none"
-        style={{ background: 'radial-gradient(circle, var(--color-accent), transparent 0%)' }}
-      />
+    <section className="min-h-screen section-fade flex items-center lg:px-40">
+      <div className="mx-auto w-full xl:max-w-5xl 2xl:max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Text column */}
+          <div className="flex flex-col order-2 lg:order-1">
+            <motion.h1
+              className="
+                text-5xl md:text-7xl 2xl:text-8xl
+                font-semibold tracking-tight mb-6 leading-[1.3] py-2
+              "
+            >
+              {text.split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  animate={{ y: [0, 20, 0] }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.05,
+                  }}
+                  className="letter-sweep inline-block"
+                  style={{
+                    animationDelay: `${i * (2 / text.length)}s`,
+                  }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </motion.h1>
 
-      <div className="flex items-center justify-between gap-12">
-        <div className="flex flex-col">
-          <motion.h1
-            className="text-5xl md:text-7xl font-semibold tracking-tight mb-6 leading-[1.3] py-2"
-          >
-            {text.split('').map((char, i) => (
-              <motion.span
-                key={i}
-                animate={{ y: [0, 20, 0] }}
-                transition={{
-                  duration: 2.3,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  delay: i * 0.05,
-                }}
-                className="wave-rainbow inline-block"
-                style={{
-                  backgroundPositionX: `${i * -40}px`,
-                  animationDelay: `${i * 0.10}s`,
-                }}
-              >
-                {char === ' ' ? '\u00A0' : char}
-              </motion.span>
-            ))}
-          </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-text text-lg 2xl:text-xl max-w-xl 2xl:max-w-2xl mb-5"
+            >
+              Software Engineer; Computer Science @ SSU.
+            </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-text-muted text-lg max-w-xl mb-5"
-          >
-            Software Engineer; Computer Science @ SSU.
-          </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-text text-lg 2xl:text-xl max-w-xl 2xl:max-w-2xl mb-5"
+            >
+              Focused on backend and systems development.
+            </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-text-muted text-lg max-w-xl mb-5"
-          >
-            Currently building efficient and secure software.
-          </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-text text-lg 2xl:text-xl max-w-xl 2xl:max-w-2xl"
+            >
+              Growth mindset; continuous learning.
+            </motion.p>
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-text-muted text-lg max-w-xl mb-5"
-          >
-            Also improving AI through code analysis and RLHF.
-          </motion.p>
+          {/* Image column */}
+          <div className="flex justify-center lg:justify-end order-1 lg:order-2">
+            <div className="block sm:hidden">
+              <ParticleImage src="/finn.png" size={280} />
+            </div>
+            <div className="hidden sm:block lg:hidden">
+              <ParticleImage src="/finn.png" size={340} />
+            </div>
+            <div className="hidden lg:block xl:hidden">
+              <ParticleImage src="/finn.png" size={360} />
+            </div>
+            <div className="hidden xl:block 2xl:hidden">
+              <ParticleImage src="/finn.png" size={392} />
+            </div>
+            <div className="hidden 2xl:block">
+              <ParticleImage src="/finn.png" size={500} />
+            </div>
+          </div>
         </div>
-
-        <ParticleImage
-          src="/finn.png"
-          size={392}
-        />
       </div>
     </section>
-  )
+  );
 }

@@ -42,7 +42,7 @@ export default function Contact() {
       </motion.div>
 
       <p className="text-text-muted/50 text-xs mt-24">
-        Built with React, Tailwind, and Framer Motion.
+        Built by Dylan Pierre.
       </p>
     </section>
   )

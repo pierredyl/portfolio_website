@@ -44,10 +44,10 @@ export default function ParticleImage({ src, size = 320, className = '' }) {
 
       const imageData = offCtx.getImageData(0, 0, size, size).data
 
-      const gap = 7
+      const gap = 9
       particles = []
 
-      const accent = { r: 91, g: 141, b: 239 }
+      const accent = { r: 245, g: 240, b: 225 }
 
       // Drawing each pixel
       for (let y = 0; y < size; y += gap) {
@@ -60,14 +60,14 @@ export default function ParticleImage({ src, size = 320, className = '' }) {
             const g = imageData[i + 1]
             const b = imageData[i + 2]
 
-            const lum = 10 * 0.2126 * r + 0.7152 * g + 0.0722 * b
+            const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
             const t = lum / 255
 
             // 16-step quantized shading band (controlled density)
             const levels = 16
             const q = Math.floor(t * levels) / levels
 
-            const brightness = 0.35 + q * 0.5
+            const brightness = 0.35 + q * 0.5 * 3
 
             particles.push({
               baseX: x,
@@ -93,10 +93,10 @@ export default function ParticleImage({ src, size = 320, className = '' }) {
       ctx.clearRect(0, 0, size, size)
 
       const mouse = mouseRef.current
-      const radius = 34
-      const force = 50
+      const radius = 20
+      const force = 10
 
-    ctx.fillStyle = '#5b8def'
+    ctx.fillStyle = '#f5f0e1'
 
     // Move particles around mouse cursor
       for (const p of particles) {
