@@ -3,6 +3,20 @@ import ParticleImage from "./ParticleImage";
 
 const text = "Hey, I'm Dylan";
 
+const badges = [
+  { label: "Backend",     color: "cyan"   },
+  { label: "Go",          color: "cyan"   },
+  { label: "C++",         color: "orange" },
+  { label: "Systems",     color: "orange" },
+  { label: "Security",    color: "violet" },
+]
+
+const colorMap = {
+  cyan: "bg-cyan-500/10 border-cyan-500/30 text-cyan-400",
+  orange: "bg-orange-500/10 border-orange-500/30 text-orange-400",
+  violet: "bg-violet-500/10 border-violet-500/30 text-violet-400",
+};
+
 export default function Hero() {
   return (
     <section className="min-h-screen section-fade flex items-center lg:px-40">
@@ -10,12 +24,7 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text column */}
           <div className="flex flex-col order-2 lg:order-1">
-            <motion.h1
-              className="
-                text-5xl md:text-7xl 2xl:text-8xl
-                font-semibold tracking-tight mb-6 leading-[1.3] py-2
-              "
-            >
+            <motion.h1 className="text-5xl md:text-7xl 2xl:text-8xl font-semibold tracking-tight mb-6 leading-[1.3] py-2">
               {text.split("").map((char, i) => (
                 <motion.span
                   key={i}
@@ -27,9 +36,7 @@ export default function Hero() {
                     delay: i * 0.05,
                   }}
                   className="letter-sweep inline-block"
-                  style={{
-                    animationDelay: `${i * (2 / text.length)}s`,
-                  }}
+                  style={{ animationDelay: `${i * (2 / text.length)}s` }}
                 >
                   {char === " " ? "\u00A0" : char}
                 </motion.span>
@@ -40,28 +47,36 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-text text-lg 2xl:text-xl max-w-xl 2xl:max-w-2xl mb-5"
+              className="text-text text-lg 2xl:text-xl max-w-xl 2xl:max-w-2xl mb-8"
             >
-              Software Engineer; Computer Science @ SSU.
+              Software Engineer · Computer Science @ SSU
             </motion.p>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-text text-lg 2xl:text-xl max-w-xl 2xl:max-w-2xl mb-5"
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-text text-lg 2xl:text-xl max-w-xl 2xl:max-w-2xl mb-8"
             >
-              Focused on backend and systems development.
+              Currently looking for software engineering opportunities.
             </motion.p>
 
-            <motion.p
+            {/* Badges */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-text text-lg 2xl:text-xl max-w-xl 2xl:max-w-2xl"
+              transition={{ duration: 0.6, delay: 0.35 }}
+              className="flex flex-wrap gap-4"
             >
-              Growth mindset; continuous learning.
-            </motion.p>
+              {badges.map((badge) => (
+                <span
+                  key={badge.label}
+                  className={`font-mono text-xl font-semibold px-3 py-1.5 rounded-md border ${colorMap[badge.color]}`}
+                >
+                  {badge.label}
+                </span>
+              ))}
+            </motion.div>
           </div>
 
           {/* Image column */}
