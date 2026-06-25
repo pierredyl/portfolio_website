@@ -13,27 +13,21 @@ export default function About() {
           Who am I?
         </h2>
         <div className="space-y-8 text-text text-base leading-relaxed text-indent">
-          <p>
-              I'm a recent Computer Science graduate from Sonoma State University
-            and software engineer with a strong foundation in systems level and
-            backend programming.
-          </p>
-          <p>
-            While I love programming, I'm also an IT generalist, having
-            troubleshooted hundreds of problems and helping people with any of
-            their technology concerns. Having an understanding of IT provides me a
-            unique perspective when creating tools for the organization or creating features for users.
-          </p>
-          <p>
-            Security is something I bake in when it comes to my work. Having
-            earned the Security+ certificate gives me a strong background in
-            writing secure code and securing already existing infrastructure.
-          </p>
+<p>
+  I'm a recent Computer Science graduate from Sonoma State University and a software engineer with a strong foundation in systems-level and backend programming.
+</p>
 
-          <p>
-            I'm always on the lookout for new ways to challenge myself and grow
-            as a developer and a person. I'm currently looking for software engineer opportunities.
-          </p>
+<p>
+  While I enjoy programming, I'm also an IT generalist. I've troubleshooted hundreds of issues and helped people with a wide range of technology problems. That IT experience gives me a practical perspective when building tools for organizations and designing features for users.
+</p>
+
+<p>
+  Security is something I build into my work. Earning the Security+ certification gave me a solid foundation in writing secure code and strengthening existing infrastructure.
+</p>
+
+<p>
+  I'm always looking for new ways to challenge myself and grow as both a developer and a person. I'm currently seeking software engineering opportunities.
+</p>
         </div>
       </motion.div>
     </section>
