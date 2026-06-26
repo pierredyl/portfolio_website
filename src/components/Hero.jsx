@@ -24,7 +24,7 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text column */}
           <div className="flex flex-col order-2 lg:order-1">
-            <motion.h1 className="text-5xl md:text-7xl 2xl:text-8xl font-semibold tracking-tight mb-6 leading-[1.3] py-2">
+            <motion.h1 className="text-5xl md:text-7xl 2xl:text-8xl font-semibold tracking-tight mb-12 leading-[1.3] py-2">
               {text.split("").map((char, i) => (
                 <motion.span
                   key={i}
@@ -47,18 +47,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-text text-lg 2xl:text-xl max-w-xl 2xl:max-w-2xl mb-8"
+              className="text-text text-lg text-bold font-bold 2xl:text-xl max-w-xl 2xl:max-w-2xl mb-8"
             >
               Software Engineer · Computer Science @ SSU
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-text text-lg 2xl:text-xl max-w-xl 2xl:max-w-2xl mb-8"
-            >
-              Currently looking for software engineering opportunities.
             </motion.p>
 
             {/* Badges */}
