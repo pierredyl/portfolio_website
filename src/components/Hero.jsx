@@ -3,19 +3,6 @@ import ParticleImage from "./ParticleImage";
 
 const text = "Hey, I'm Dylan";
 
-const badges = [
-  { label: "Backend",     color: "cyan"   },
-  { label: "Go",          color: "cyan"   },
-  { label: "C++",         color: "orange" },
-  { label: "Systems",     color: "orange" },
-  { label: "Security",    color: "violet" },
-]
-
-const colorMap = {
-  cyan: "bg-cyan-500/10 border-cyan-500/30 text-cyan-400",
-  orange: "bg-orange-500/10 border-orange-500/30 text-orange-400",
-  violet: "bg-violet-500/10 border-violet-500/30 text-violet-400",
-};
 
 export default function Hero() {
   return (
@@ -24,8 +11,12 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text column */}
           <div className="flex flex-col order-2 lg:order-1">
-            <motion.h1 className="text-5xl md:text-7xl 2xl:text-8xl font-semibold tracking-tight mb-12 leading-[1.3] py-2">
-              {text.split("").map((char, i) => (
+<motion.h1 className="
+  text-5xl sm:text-6xl md:text-7xl 2xl:text-8xl
+  font-bold tracking-tight
+  mb-16 leading-[1.3] py-2
+  whitespace-nowrap
+">              {text.split("").map((char, i) => (
                 <motion.span
                   key={i}
                   animate={{ y: [0, 20, 0] }}
@@ -51,23 +42,6 @@ export default function Hero() {
             >
               Software Engineer · Computer Science @ SSU
             </motion.p>
-
-            {/* Badges */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className="flex flex-wrap gap-4"
-            >
-              {badges.map((badge) => (
-                <span
-                  key={badge.label}
-                  className={`font-mono text-xl font-semibold px-3 py-1.5 rounded-md border ${colorMap[badge.color]}`}
-                >
-                  {badge.label}
-                </span>
-              ))}
-            </motion.div>
           </div>
 
           {/* Image column */}
