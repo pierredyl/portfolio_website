@@ -1,24 +1,6 @@
 import { motion } from 'framer-motion'
 
 const projects = [
-  {
-    title: 'redis-mini',
-    description:
-      'A Redis-compatible in-memory key-value store in Go — implements the RESP wire protocol, AOF persistence, and goroutine-per-connection concurrency.',
-    lang: { label: 'Go', color: 'cyan' },
-    concepts: ['Concurrency', 'Backend', 'Databases', 'Networking'],
-    video: 'redis_video.mp4',
-    link: 'https://github.com/pierredyl/redis-mini',
-  },
-  {
-    title: 'Secure API Gateway',
-    description:
-      'Stateless auth gateway in Go: PASETO tokens, Argon2id, RBAC.',
-    lang: { label: 'Go', color: 'cyan' },
-    concepts: ['Microservices', 'RESTful APIs', 'Security', 'Cryptography'],
-    video: 'gateway_video.mp4',
-    link: 'https://github.com/pierredyl/secure-auth-gateway',
-  },
 {
     title: 'C-Like Interpreter',
     description:
@@ -27,6 +9,24 @@ const projects = [
     concepts: ['Compiler Design', 'Data Structures & Algorithms', 'Memory Management', 'Software Architecture', 'Systems Programming'],
     video: 'interpreter_video.mp4',
     link: 'https://github.com/pierredyl/c-like-language-interpreter',
+  },
+  {
+    title: 'Authentication and Authorization Service',
+    description:
+      'Stateless auth gateway in Go: PASETO tokens, Argon2id, RBAC.',
+    lang: { label: 'Go', color: 'cyan' },
+    concepts: ['Microservices', 'RESTful APIs', 'Security', 'Cryptography', 'Backend'],
+    video: 'gateway_video.mp4',
+    link: 'https://github.com/pierredyl/secure-auth-gateway',
+  },
+  {
+    title: 'redis-mini',
+    description:
+      'A Redis-compatible in-memory key-value store in Go — implements the RESP wire protocol, AOF persistence, and goroutine-per-connection concurrency.',
+    lang: { label: 'Go', color: 'cyan' },
+    concepts: ['Concurrency', 'Backend', 'Databases', 'Networking'],
+    video: 'redis_video.mp4',
+    link: 'https://github.com/pierredyl/redis-mini',
   },
 ]
 

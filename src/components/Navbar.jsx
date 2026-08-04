@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const links = [
-  { id: "about", label: "About" },
   { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
 ];
@@ -10,6 +10,8 @@ const links = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -20,6 +22,10 @@ export default function Navbar() {
   const handleClick = (e, id) => {
     e.preventDefault();
     setMenuOpen(false);
+    if (location.pathname !== "/") {
+      navigate(`/#${id}`);
+      return;
+    }
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -32,11 +38,15 @@ export default function Navbar() {
       <nav className="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
         {/* Logo */}
         <a
-          href="#"
+          href="/"
           onClick={(e) => {
             e.preventDefault();
             setMenuOpen(false);
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            if (location.pathname === "/") {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+              navigate("/");
+            }
           }}
           className="text-text font-medium tracking-tight"
         >
@@ -56,6 +66,16 @@ export default function Navbar() {
               </a>
             </li>
           ))}
+
+          <li>
+            <Link
+              to="/blog"
+              onClick={() => setMenuOpen(false)}
+              className="text-sm text-text-muted hover:text-text transition-colors duration-200"
+            >
+              Blog
+            </Link>
+          </li>
 
           <a
             href="https://github.com/pierredyl"
@@ -120,6 +140,14 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
+
+              <Link
+                to="/blog"
+                onClick={() => setMenuOpen(false)}
+                className="text-base text-text-muted hover:text-text transition-colors duration-200"
+              >
+                Blog
+              </Link>
 
               <div className="flex items-center gap-5 pt-2 border-t border-border/40">
                 <a
