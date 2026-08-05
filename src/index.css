@@ -48,15 +48,10 @@ body {
   color: var(--color-text);
 }
 
-.letter-sweep {
-  animation: letter-sweep 2.8s linear infinite;
-}
-
-@keyframes letter-sweep {
-  0%, 100% {
-    color: #ffffff;
-  }
-  50% {
-    color: #245ace;
-  }
+.letter-3d {
+  text-shadow:
+    0.02em 0.02em 0 var(--color-border),
+    0.04em 0.04em 0 var(--color-border),
+    0.06em 0.06em 0 var(--color-surface),
+    0.08em 0.08em 0.16em rgba(0, 0, 0, 0.45);
 }

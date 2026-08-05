@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Background from './components/Background'
 import Navbar from './components/Navbar'
+import ScrollToTop from './components/ScrollToTop'
 import Hero from './components/Hero'
 import RecentBlogPosts from './components/RecentBlogPosts'
 import Projects from './components/Projects'
@@ -24,6 +25,7 @@ function App() {
     <div className="bg-bg text-text min-h-screen relative">
       <Background />
       <Navbar />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blog" element={<Blog />} />

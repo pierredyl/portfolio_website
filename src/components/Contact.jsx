@@ -32,8 +32,8 @@ export default function Contact() {
         transition={{ duration: 0.6 }}
         className="flex flex-col items-center"
       >
-        <h2 className="text-4xl md:text-6xl font-semibold text-[var(--color-text-special)] tracking-tight mb-10">
-          Let's work together.
+        <h2 className="text-3xl md:text-4xl font-semibold text-[var(--color-text-special)] tracking-tight mb-10">
+          Contact Me
         </h2>
 
         <button
