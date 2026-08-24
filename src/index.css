@@ -1,34 +1,57 @@
 @import "tailwindcss";
 
+/* Pally — three real weights under one family. Root-absolute so the build resolves them. */
 @font-face {
-  font-family: "Pally-Medium";
-  src: url("fonts/Pally-Medium.otf") format("woff2");
+  font-family: "Pally";
+  src: url("/fonts/Pally-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Pally-Normal";
-  src: url("fonts/Pally-Regular.otf") format("woff2");
-  font-weight: 400;
+  font-family: "Pally";
+  src: url("/fonts/Pally-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pally";
+  src: url("/fonts/Pally-Bold.woff2") format("woff2");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @theme {
-  --font-sans: "Pally-Medium", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Pally", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* Lightened neutral blue palette */
-  --color-bg: #121827; 
-  --color-bg-soft: #1e2e5a;
-  --color-surface: #1b2440;
-  --color-border: #2a3550;
+  /* Surfaces — a real scale, so depth is expressible */
+  --color-bg: #0b111c;
+  --color-bg-band: #101a2b;
+  --color-surface: #151f33;
+  --color-surface-hi: #1c2942;
+  --color-border: #223049;
+  --color-border-hi: #384a6b;
+
+  /* Text */
   --color-text: #f5f0e1;
-  --color-text-special: #2563eb;
-  --color-text-muted: #a9b4c6;
-  --color-accent: #6ea0ff;
-  --color-accent-soft: #6ea0ff33;
+  --color-text-muted: #98a4b8;
+  --color-text-faint: #64708a;
+
+  /* Silver accent — cool-toned, not a plain gray */
+  --color-accent: #c8d0dc;
+  --color-accent-hi: #dce3ec;
+  --color-accent-soft: #c8d0dc1f;
+  --color-accent-glow: #c8d0dc0d;
+
+  /* Fluid type scale */
+  --text-display: clamp(3rem, 9vw, 7rem);
+  --text-h2: clamp(2rem, 4vw, 3.25rem);
+  --text-h3: clamp(1.375rem, 2.2vw, 1.75rem);
+  --text-lead: clamp(1.0625rem, 1.4vw, 1.1875rem);
 }
 
 html {
@@ -41,11 +64,142 @@ body {
   color: var(--color-text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
   background: var(--color-accent-soft);
   color: var(--color-text);
+}
+
+/* ---- Type ---- */
+
+.display {
+  font-size: var(--text-display);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+}
+
+.h2 {
+  font-size: var(--text-h2);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+.h3 {
+  font-size: var(--text-h3);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+.lead {
+  font-size: var(--text-lead);
+  line-height: 1.65;
+}
+
+/* Mono is for metadata only: dates, indices, labels, tags. Never titles. */
+.meta {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Larger mono steps. Defined after .meta and unlayered, so they win the
+   cascade — a Tailwind text-[13px] utility would NOT, since layered rules
+   always lose to unlayered ones regardless of source order. */
+.meta-md {
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+}
+
+.meta-lg {
+  font-size: 0.9375rem;
+  letter-spacing: 0.1em;
+}
+
+.balance {
+  text-wrap: balance;
+}
+
+/* ---- Surfaces ---- */
+
+/* The inset top highlight is what makes a dark card read as lit rather than painted. */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 8px 24px -12px rgba(0, 0, 0, 0.5);
+}
+
+.card-hover {
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-border-hi);
+  background: var(--color-surface-hi);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 20px 40px -16px rgba(0, 0, 0, 0.6);
+}
+
+/* Ambient light behind the contact card — tucked inside the element's
+   bounds so it never haloes past its edge. */
+.glow::before {
+  content: "";
+  position: absolute;
+  inset: 6%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at center,
+    var(--color-accent-glow) 0%,
+    transparent 52%
+  );
+  filter: blur(44px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Marquee ---- */
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee-scroll 42s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
 }
 
 .letter-3d {

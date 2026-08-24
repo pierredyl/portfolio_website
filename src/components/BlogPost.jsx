@@ -1,14 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link, useParams } from 'react-router-dom'
 import { posts } from '../data/posts'
-
-function TagBadge({ label }) {
-  return (
-    <span className="font-mono text-[11px] px-2.5 py-1 rounded border border-border text-text-muted bg-surface/60">
-      {label}
-    </span>
-  )
-}
+import { readingTime } from '../lib/readingTime'
 
 export default function BlogPost() {
   const { slug } = useParams()
@@ -16,16 +9,15 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <section className="max-w-5xl mx-auto px-6 pt-40 pb-32">
-        <h1 className="text-3xl md:text-4xl font-semibold text-[var(--color-text-special)] tracking-tight mb-4">
-          Post not found
-        </h1>
-        <p className="text-sm text-text-muted mb-8">
-          This post doesn't exist or may have been moved.
+      <section className="max-w-3xl mx-auto px-6 md:px-10 pt-40 pb-32">
+        <span className="meta text-accent">404</span>
+        <h1 className="h2 text-text mt-5 mb-4">Post not found.</h1>
+        <p className="lead text-text-muted mb-10">
+          This post doesn&rsquo;t exist or may have been moved.
         </p>
         <Link
           to="/blog"
-          className="text-sm text-accent hover:opacity-80 transition-opacity duration-200"
+          className="meta text-text-muted hover:text-accent transition-colors duration-200"
         >
           &larr; Back to Blog
         </Link>
@@ -34,7 +26,7 @@ export default function BlogPost() {
   }
 
   return (
-    <section className="max-w-3xl mx-auto px-6 pt-40 pb-32">
+    <article className="max-w-3xl mx-auto px-6 md:px-10 pt-40 pb-32">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -42,34 +34,48 @@ export default function BlogPost() {
       >
         <Link
           to="/blog"
-          className="text-sm text-text-muted hover:text-text transition-colors duration-200"
+          className="meta text-text-muted hover:text-accent transition-colors duration-200"
         >
           &larr; Back to Blog
         </Link>
 
-        <h1 className="text-3xl md:text-4xl font-semibold text-text tracking-tight mt-6 mb-6 leading-tight">
-          {post.title}
-        </h1>
-
-        <div className="flex items-center gap-3 mb-8">
-          <img
-            src={post.author.avatar}
-            alt={post.author.name}
-            className="w-10 h-10 rounded-full object-cover border border-border"
-          />
-          <div className="flex flex-col">
-            <span className="text-sm text-text">{post.author.name}</span>
-            <span className="font-mono text-xs text-text-muted">{post.date}</span>
+        <header className="mt-8 pb-10 border-b border-border">
+          <div className="meta text-text-faint flex flex-wrap gap-x-4 gap-y-2 mb-6">
+            <span>{post.date}</span>
+            {post.tags.map((t) => (
+              <span key={t}>{t}</span>
+            ))}
+            <span>{readingTime(post)} min read</span>
           </div>
-        </div>
 
-        <div className="flex flex-wrap gap-1.5 mb-12">
-          {post.tags.map((t) => (
-            <TagBadge key={t} label={t} />
-          ))}
-        </div>
+          <h1 className="h2 text-text balance mb-8">{post.title}</h1>
 
-        <div className="flex flex-col gap-5">
+          <div className="flex items-center gap-3">
+            {/* The avatar is decorative — the author's name sits right beside it,
+                so alt text here would just make a screen reader say it twice. */}
+            {post.author.avatar ? (
+              <img
+                src={post.author.avatar}
+                alt=""
+                width={36}
+                height={36}
+                decoding="async"
+                className="w-9 h-9 rounded-full object-cover border border-border"
+              />
+            ) : (
+              <span className="meta w-9 h-9 rounded-full bg-surface border border-border text-text-muted flex items-center justify-center">
+                {post.author.name
+                  .split(' ')
+                  .map((w) => w[0])
+                  .slice(0, 2)
+                  .join('')}
+              </span>
+            )}
+            <span className="meta text-text-muted">{post.author.name}</span>
+          </div>
+        </header>
+
+        <div className="flex flex-col gap-7 mt-12">
           {post.content.map((block, i) => {
             if (block.type === 'embed') {
               return (
@@ -104,7 +110,7 @@ export default function BlogPost() {
                     />
                   </div>
                   {block.caption && (
-                    <figcaption className="font-mono text-xs text-text-muted mt-2">
+                    <figcaption className="meta text-text-faint mt-3">
                       {block.caption}
                     </figcaption>
                   )}
@@ -112,13 +118,13 @@ export default function BlogPost() {
               )
             }
             return (
-              <p key={i} className="text-sm text-text-muted leading-relaxed">
+              <p key={i} className="lead text-text-muted leading-[1.75]">
                 {block.text}
               </p>
             )
           })}
         </div>
       </motion.div>
-    </section>
+    </article>
   )
 }

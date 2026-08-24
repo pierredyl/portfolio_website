@@ -1,9 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import useActiveSection from "../hooks/useActiveSection";
+import { site } from "../data/site";
 
 const links = [
+  { id: "about", label: "About" },
   { id: "projects", label: "Projects" },
+  { id: "blog", label: "Blog" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -12,6 +16,10 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const isHome = location.pathname === "/";
+  const ids = useMemo(() => links.map((l) => l.id), []);
+  const active = useActiveSection(ids, isHome);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -31,12 +39,14 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 duration-300 ${
-        scrolled || menuOpen ? "border-b border-border/60" : ""
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+        scrolled || menuOpen
+          ? "border-b border-border/70 bg-bg/80 backdrop-blur-md"
+          : "border-b border-transparent"
       }`}
     >
-      <nav className="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
-        {/* Logo */}
+      <nav className="max-w-5xl mx-auto px-6 md:px-10 py-6 flex items-center justify-between">
+        {/* Wordmark */}
         <a
           href="/"
           onClick={(e) => {
@@ -48,74 +58,72 @@ export default function Navbar() {
               navigate("/");
             }
           }}
-          className="text-text font-medium tracking-tight"
+          className="meta meta-lg text-text hover:text-accent transition-colors duration-200"
         >
           Dylan Pierre
         </a>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden md:flex items-center gap-7">
           {links.map((link) => (
             <li key={link.id}>
               <a
                 href={`#${link.id}`}
                 onClick={(e) => handleClick(e, link.id)}
-                className="text-sm text-text-muted hover:text-text transition-colors duration-200"
+                className={`meta meta-md transition-colors duration-200 ${
+                  active === link.id
+                    ? "text-accent"
+                    : "text-text-muted hover:text-text"
+                }`}
               >
                 {link.label}
               </a>
             </li>
           ))}
 
-          <li>
-            <Link
-              to="/blog"
-              onClick={() => setMenuOpen(false)}
-              className="text-sm text-text-muted hover:text-text transition-colors duration-200"
+          <li className="flex items-center gap-4 pl-1">
+            <a
+              href={site.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="opacity-60 hover:opacity-100 transition-opacity duration-200"
             >
-              Blog
-            </Link>
+              <img src="/github_logo.svg" alt="" className="w-[22px] h-[22px] brightness-0 invert" />
+            </a>
+
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="opacity-60 hover:opacity-100 transition-opacity duration-200"
+            >
+              <img src="/linkedin_logo.svg" alt="" className="w-[22px] h-[22px]" />
+            </a>
           </li>
 
-          <a
-            href="https://github.com/pierredyl"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="opacity-70 hover:opacity-100 transition-opacity duration-200"
-          >
-            <img src="/github_logo.svg" alt="" className="w-8 h-8 brightness-0 invert" />
-          </a>
-
-          <a
-            href="https://www.linkedin.com/in/pierredylan/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="opacity-70 hover:opacity-100 transition-opacity duration-200"
-          >
-            <img src="/linkedin_logo.svg" alt="" className="w-8 h-8" />
-          </a>
-
-          <a
-            href="/DylanPierre_Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm px-4 py-1.5 rounded-full bg-text text-bg hover:opacity-80 transition-opacity duration-200"
-          >
-            Resume
-          </a>
+          <li>
+            <a
+              href={site.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="meta meta-md px-5 py-2.5 rounded-full bg-accent text-bg font-bold hover:bg-accent-hi transition-colors duration-200"
+            >
+              Resume
+            </a>
+          </li>
         </ul>
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
+          className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-2"
           onClick={() => setMenuOpen((o) => !o)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
-          <span className={`block w-5 h-px bg-text transition-transform duration-200 origin-center ${menuOpen ? "rotate-45 translate-y-[6px]" : ""}`} />
-          <span className={`block w-5 h-px bg-text transition-opacity duration-150 ${menuOpen ? "opacity-0" : ""}`} />
-          <span className={`block w-5 h-px bg-text transition-transform duration-200 origin-center ${menuOpen ? "-rotate-45 -translate-y-[6px]" : ""}`} />
+          <span className={`block w-6 h-px bg-text transition-transform duration-200 origin-center ${menuOpen ? "rotate-45 translate-y-[9px]" : ""}`} />
+          <span className={`block w-6 h-px bg-text transition-opacity duration-150 ${menuOpen ? "opacity-0" : ""}`} />
+          <span className={`block w-6 h-px bg-text transition-transform duration-200 origin-center ${menuOpen ? "-rotate-45 -translate-y-[9px]" : ""}`} />
         </button>
       </nav>
 
@@ -129,52 +137,46 @@ export default function Navbar() {
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="md:hidden overflow-hidden border-t border-border/60 bg-bg"
           >
-            <div className="flex flex-col px-6 py-6 gap-6">
+            <div className="flex flex-col px-6 py-4">
               {links.map((link) => (
                 <a
                   key={link.id}
                   href={`#${link.id}`}
                   onClick={(e) => handleClick(e, link.id)}
-                  className="text-base text-text-muted hover:text-text transition-colors duration-200"
+                  className={`h3 py-4 border-b border-border/50 transition-colors duration-200 ${
+                    active === link.id ? "text-accent" : "text-text-muted hover:text-text"
+                  }`}
                 >
                   {link.label}
                 </a>
               ))}
 
-              <Link
-                to="/blog"
-                onClick={() => setMenuOpen(false)}
-                className="text-base text-text-muted hover:text-text transition-colors duration-200"
-              >
-                Blog
-              </Link>
-
-              <div className="flex items-center gap-5 pt-2 border-t border-border/40">
+              <div className="flex items-center gap-5 pt-6 pb-2">
                 <a
-                  href="https://github.com/pierredyl"
+                  href={site.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
                   className="opacity-70 hover:opacity-100 transition-opacity duration-200"
                 >
-                  <img src="/github_logo.svg" alt="" className="w-7 h-7 brightness-0 invert" />
+                  <img src="/github_logo.svg" alt="" className="w-6 h-6 brightness-0 invert" />
                 </a>
 
                 <a
-                  href="https://www.linkedin.com/in/pierredylan/"
+                  href={site.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
                   className="opacity-70 hover:opacity-100 transition-opacity duration-200"
                 >
-                  <img src="/linkedin_logo.svg" alt="" className="w-7 h-7" />
+                  <img src="/linkedin_logo.svg" alt="" className="w-6 h-6" />
                 </a>
 
                 <a
-                  href="/DylanPierre_Resume.pdf"
+                  href={site.resume}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="ml-auto text-sm px-4 py-1.5 rounded-full bg-text text-bg hover:opacity-80 transition-opacity duration-200"
+                  className="meta meta-md ml-auto px-5 py-2.5 rounded-full bg-accent text-bg font-bold hover:bg-accent-hi transition-colors duration-200"
                 >
                   Resume
                 </a>

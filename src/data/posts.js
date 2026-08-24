@@ -8,6 +8,7 @@ export const posts = [
     tags: ['Non-tech'],
     author: {
       name: 'Dylan Pierre',
+      // EDIT: byline image. Omit it and the byline falls back to initials.
       avatar: '/finn_graphic.png',
     },
     content: [
