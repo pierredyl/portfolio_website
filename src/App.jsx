@@ -10,15 +10,20 @@ import Contact from './components/Contact'
 import Blog from './components/Blog'
 import BlogPost from './components/BlogPost'
 import ProjectDetail from './components/ProjectDetail'
+import Maintenance from './components/Maintenance'
 
 function Home() {
   return (
     <>
+      {/*
       <Hero />
       <About />
       <Projects />
       <BlogSection />
       <Contact />
+      */}
+
+      <Maintenance />
     </>
   )
 }
@@ -27,7 +32,7 @@ function App() {
   return (
     <div className="bg-bg text-text min-h-screen relative">
       <Background />
-      <Navbar />
+      {/*<Navbar />*/}
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />

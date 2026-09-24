@@ -7,6 +7,7 @@ export default function Hero() {
   // only if the reader hasn't already taken over. Any scroll, key, or click
   // means they're driving, and the page should not yank itself out from under
   // them.
+  {/*
   const interrupted = useRef(false)
 
   useEffect(() => {
@@ -37,5 +38,5 @@ export default function Hero() {
         </motion.div>
       </div>
     </section>
-  )
+)*/}
 }

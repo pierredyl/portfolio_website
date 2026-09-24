@@ -37,7 +37,7 @@ export const site = {
 
       // EDIT: the hidden page heading. Not drawn on screen — it is what
       // search engines and screen readers read as the page's <h1>.
-      heading: 'Dylan Pierre — Software Engineer',
+      heading: 'Dylan Pierre\'s Portfolio',
     },
   },
 
