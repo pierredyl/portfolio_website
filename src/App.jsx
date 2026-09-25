@@ -36,9 +36,11 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
+        {/*
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
+        */}
       </Routes>
     </div>
   )
